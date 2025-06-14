@@ -199,16 +199,23 @@ export default {
     
     // Handle SSE endpoint
     if (url.pathname === '/sse') {
-      // Handle GET requests for SSE connection establishment
+      // For SSE, we need to handle both GET and POST in a streaming fashion
+      // The MCP Inspector expects a bidirectional SSE connection
+      
+      const headers = {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      };
+
       if (request.method === 'GET') {
-        return new Response('LayrPay MCP Server SSE endpoint ready', {
+        // Initial SSE connection - just return a basic stream
+        return new Response('data: {"jsonrpc":"2.0","method":"notifications/initialized"}\n\n', {
           status: 200,
-          headers: {
-            'Content-Type': 'text/plain',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-          }
+          headers
         });
       }
 
