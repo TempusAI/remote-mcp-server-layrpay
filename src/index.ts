@@ -231,7 +231,7 @@ export default {
         console.log('Received request body:', body);
         
         const mcpRequest = JSON.parse(body);
-        console.log('Parsed MCP request:', mcpRequest);
+        console.log('Parsed MCP request:', JSON.stringify(mcpRequest, null, 2));
         
         // Handle different MCP methods directly
         let response: any;
@@ -243,7 +243,9 @@ export default {
             result: {
               protocolVersion: "2024-11-05",
               capabilities: {
-                tools: {}
+                tools: {
+                  listChanged: true
+                }
               },
               serverInfo: {
                 name: "layrpay-mcp-server",
