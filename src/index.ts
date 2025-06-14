@@ -18,9 +18,9 @@ interface LayrPayApiResponse {
 
 // Tool response helper
 function createToolResponse(data: any, isError: boolean = false) {
-  return {
-    content: [
-      {
+							return {
+								content: [
+									{
         type: "text" as const,
         text: JSON.stringify(data, null, 2)
       }
@@ -135,8 +135,8 @@ async function handleStreamingValidation(
               
               if (done) {
                 reject(new Error('SSE stream ended without final status'));
-                break;
-              }
+						break;
+				}
 
               buffer += decoder.decode(value, { stream: true });
               
@@ -195,8 +195,8 @@ async function handleStreamingValidation(
 // Export for Cloudflare Workers
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const url = new URL(request.url);
-    
+		const url = new URL(request.url);
+
     // Handle SSE endpoint
     if (url.pathname === '/sse') {
       // For SSE, we need to handle both GET and POST in a streaming fashion
