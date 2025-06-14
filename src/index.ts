@@ -611,6 +611,28 @@ export default {
               }
             };
           }
+        } else if (mcpRequest.method === 'notifications/initialized') {
+          // Handle initialized notification - no response needed for notifications
+          console.log('Received initialized notification');
+          return new Response('', {
+            status: 204,
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST, OPTIONS',
+              'Access-Control-Allow-Headers': 'Content-Type',
+            }
+          });
+        } else if (mcpRequest.method.startsWith('notifications/')) {
+          // Handle other notifications - no response needed
+          console.log('Received notification:', mcpRequest.method);
+          return new Response('', {
+            status: 204,
+            headers: {
+              'Access-Control-Allow-Origin': '*',
+              'Access-Control-Allow-Methods': 'POST, OPTIONS',
+              'Access-Control-Allow-Headers': 'Content-Type',
+            }
+          });
         } else {
           response = {
             jsonrpc: "2.0",
