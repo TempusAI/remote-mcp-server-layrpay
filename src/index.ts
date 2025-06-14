@@ -245,7 +245,8 @@ export default {
               capabilities: {
                 tools: {
                   listChanged: true
-                }
+                },
+                logging: {}
               },
               serverInfo: {
                 name: "layrpay-mcp-server",
@@ -616,6 +617,11 @@ export default {
         } else if (mcpRequest.method === 'notifications/initialized') {
           // Handle initialized notification - no response needed for notifications
           console.log('Received initialized notification');
+          
+          // After initialization, some clients expect an immediate tools/list response
+          // Let's send a tools/list notification to help Claude Desktop discover tools
+          console.log('Client initialized - tools should be discoverable via tools/list method');
+          
           return new Response('', {
             status: 204,
             headers: {
