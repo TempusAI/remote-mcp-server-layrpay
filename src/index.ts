@@ -236,7 +236,22 @@ export default {
         // Handle different MCP methods directly
         let response: any;
         
-                 if (mcpRequest.method === 'tools/list') {
+        if (mcpRequest.method === 'initialize') {
+          response = {
+            jsonrpc: "2.0",
+            id: mcpRequest.id,
+            result: {
+              protocolVersion: "2024-11-05",
+              capabilities: {
+                tools: {}
+              },
+              serverInfo: {
+                name: "layrpay-mcp-server",
+                version: "1.0.0"
+              }
+            }
+          };
+        } else if (mcpRequest.method === 'tools/list') {
            response = {
              jsonrpc: "2.0",
              id: mcpRequest.id,
