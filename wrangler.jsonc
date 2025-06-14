@@ -4,23 +4,13 @@
  */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "remote-mcp-server-layrpay",
+	"name": "layrpay-mcp-server",
 	"main": "src/index.ts",
-	"compatibility_date": "2025-03-10",
+	"compatibility_date": "2024-11-05",
 	"compatibility_flags": ["nodejs_compat"],
-	"migrations": [
-		{
-			"new_sqlite_classes": ["MyMCP"],
-			"tag": "v1"
-		}
-	],
-	"durable_objects": {
-		"bindings": [
-			{
-				"class_name": "MyMCP",
-				"name": "MCP_OBJECT"
-			}
-		]
+	"vars": {
+		"LAYRPAY_API_BASE_URL": "https://layrpay.vercel.app/api/mcp",
+		"LAYRPAY_USER_ID": "56cc994e-e7b1-455d-9188-0d89da1cfcf8"
 	},
 	"observability": {
 		"enabled": true
